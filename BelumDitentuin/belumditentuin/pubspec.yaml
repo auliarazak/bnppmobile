@@ -67,30 +67,29 @@ flutter:
   assets:
     - lib/files/a.pdf
     - lib/files/b.pdf
-    - lib/images/BnppLaw.png
-    - lib/images/BnppLogo.png
-    - lib/images/Laws.png
-    - lib/images/Others.png
-    - lib/images/Peraturan Mentri.png
+
+    - lib/images/PeraturanMentri.png
+    - lib/images/PeraturanPresiden.png
+    - lib/images/PeraturanBNPP.png
     - lib/images/Peraturan.png
     - lib/images/Peraturan2.png
     - lib/images/Peraturan3.png
     - lib/images/Peraturan4.png
     - lib/images/Peraturan5.png
-    - lib/images/PeraturanBnpp.png
-    - lib/images/PeraturanMentri.png
-    - lib/images/PeraturanPresiden2.png
+    - lib/images/Others.png
+
+
     - lib/images/PLBN_Aruk.png
-    - lib/images/PLBN_Badau.jpg
+    - lib/images/PLBN_Badau.png
     - lib/images/PLBN_Entikong.png
-    - lib/images/PLBN_Jagoibabang.jpg
-    - lib/images/PLBN_Motaain.jpg
-    - lib/images/PLBN_Motamasin.jpeg
-    - lib/images/PLBN_Serasan.jpeg
+    - lib/images/PLBN_Jagoibabang.png
+    - lib/images/PLBN_Motaain.png
+    - lib/images/PLBN_Motamasin2.png
+    - lib/images/PLBN_Serasan.png
     - lib/images/PLBN_Skouw.png
     - lib/images/PLBN_Sota.png
-    - lib/images/PLBN_Yatetkun.jpeg
-    - lib/images/PLBN_Wini.jpeg
+    - lib/images/PLBN_Yatetkun.png
+    - lib/images/PLBN_Wini.png
 
     
 

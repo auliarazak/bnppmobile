@@ -34,8 +34,8 @@ class _HomeState extends State<Home> {
                       top: 0,
                       bottom: 0,
                       child: Container(
-                        width: 60,
-                        height: 60,
+                        width: 50,
+                        height: 50,
                         child: const CircleAvatar(
                           radius: 50,
                           backgroundImage: NetworkImage(
@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
                                           borderRadius: const BorderRadius.all(
                                               Radius.circular(20)),
                                           child: Image.asset(
-                                            'lib/images/PeraturanPresiden2.png',
+                                            'lib/images/PeraturanPresiden.png',
                                             fit: BoxFit.cover,
                                             width: 60,
                                             height: 60,
@@ -239,7 +239,7 @@ class _HomeState extends State<Home> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
                                           child: Image.asset(
-                                            'lib/images/BnppLaw.png',
+                                            'lib/images/Peraturan.png',
                                             fit: BoxFit.cover,
                                             width: 60,
                                             height: 60,
@@ -279,7 +279,7 @@ class _HomeState extends State<Home> {
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)),
                                           child: Image.asset(
-                                            'lib/images/Peraturan3.png',
+                                            'lib/images/Peraturan2.png',
                                             fit: BoxFit.cover,
                                             width: 60,
                                             height: 60,

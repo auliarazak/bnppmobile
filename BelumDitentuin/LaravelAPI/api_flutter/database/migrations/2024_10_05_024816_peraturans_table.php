@@ -32,6 +32,7 @@ return new class extends Migration
             $table->text('lampiran');
             $table->text('abstrak');
             $table->string('peraturan_terkait')->nullable();
+            $table->timestamps();
         });
     }
 

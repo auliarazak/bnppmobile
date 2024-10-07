@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -18,9 +17,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'nip',                 // Tambahkan nip agar dapat diisi
+        'email',          // Ubah menjadi email_user
+        'password',       // Ubah menjadi password_user
+        'level_user',          // Ubah menjadi level_user
+        'waktu_email_verifikasi' // Ubah menjadi waktu_email_verifikasi
     ];
 
     /**
@@ -29,7 +30,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        'password_user',       // Ubah menjadi password_user
         'remember_token',
     ];
 
@@ -39,7 +40,17 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
+        'waktu_email_verifikasi' => 'datetime',  // Ubah menjadi waktu_email_verifikasi
+        'password_user' => 'hashed',              // Ubah menjadi password_user
     ];
+
+    /**
+     * Relasi one-to-one dengan model DataUser.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function dataUser()
+    {
+        return $this->belongsTo(DataUser::class, 'nip', 'nip');
+    }
 }
