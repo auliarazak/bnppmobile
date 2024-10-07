@@ -30,18 +30,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: ^0.13.4
-    
-    
-
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  http: ^0.13.6
   cupertino_icons: ^1.0.2
+  flutter_launcher_icons: ^0.13.1
+  syncfusion_flutter_pdfviewer: ^20.2.45
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "lib/images/PeraturanBNPP.png"
+  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -63,10 +65,34 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - lib/files/a.pdf
+    - lib/files/b.pdf
+    - lib/images/BnppLaw.png
     - lib/images/BnppLogo.png
-    - lib/images/plbnAruk.png
-    - lib/images/plbnEntikong.png
-    - lib/images/plbnSkouw.png
+    - lib/images/Laws.png
+    - lib/images/Others.png
+    - lib/images/Peraturan Mentri.png
+    - lib/images/Peraturan.png
+    - lib/images/Peraturan2.png
+    - lib/images/Peraturan3.png
+    - lib/images/Peraturan4.png
+    - lib/images/Peraturan5.png
+    - lib/images/PeraturanBnpp.png
+    - lib/images/PeraturanMentri.png
+    - lib/images/PeraturanPresiden2.png
+    - lib/images/PLBN_Aruk.png
+    - lib/images/PLBN_Badau.jpg
+    - lib/images/PLBN_Entikong.png
+    - lib/images/PLBN_Jagoibabang.jpg
+    - lib/images/PLBN_Motaain.jpg
+    - lib/images/PLBN_Motamasin.jpeg
+    - lib/images/PLBN_Serasan.jpeg
+    - lib/images/PLBN_Skouw.png
+    - lib/images/PLBN_Sota.png
+    - lib/images/PLBN_Yatetkun.jpeg
+    - lib/images/PLBN_Wini.jpeg
+
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

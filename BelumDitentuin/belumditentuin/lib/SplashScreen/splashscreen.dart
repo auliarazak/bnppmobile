@@ -44,8 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Center(
           child: Image.asset(
             'lib/images/BnppLogo.png', // Path gambar yang benar
-            width: 250, // Atur lebar gambar sesuai kebutuhan
-            height: 250, // Atur tinggi gambar sesuai kebutuhan
+            width: 200, // Atur lebar gambar sesuai kebutuhan
+            height: 200, // Atur tinggi gambar sesuai kebutuhan
           ),
         ),
       ),

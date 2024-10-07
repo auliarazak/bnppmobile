@@ -12,19 +12,70 @@ class _DashboardState extends State<Dashboard> {
   // List of images, titles, and descriptions
   final List<Map<String, String>> contentList = [
     {
-      'image': 'lib/images/plbnAruk.png',
+      'image': 'lib/images/PLBN_Aruk.png',
       'title': 'PLBN ARUK',
-      'description': 'PLBN Aruk adalah pintu perbatasan Indonesia-Malaysia yang memfasilitasi arus barang dan orang, mendukung pertumbuhan ekonomi lokal.'
+      'description':
+          'PLBN Aruk adalah pintu perbatasan antara Indonesia dan Malaysia, mendukung arus barang dan orang serta pertumbuhan ekonomi lokal.'
     },
     {
-      'image': 'lib/images/plbnEntikong.png',
+      'image': 'lib/images/PLBN_Badau.jpg',
+      'title': 'PLBN BADAU',
+      'description':
+          'PLBN Badau terletak di Kalimantan Barat, Indonesia, dan berfungsi sebagai pintu gerbang perbatasan dengan Malaysia.'
+    },
+    {
+      'image': 'lib/images/PLBN_Entikong.png',
       'title': 'PLBN ENTIKONG',
-      'description': 'PLBN Entikong adalah Pusat Layanan Border Nasional di perbatasan Indonesia-Malaysia, Kabupaten Sanggau, Kalimantan Barat. Fasilitas ini mendukung arus barang dan orang serta meningkatkan kerjasama ekonomi antarnegara.'
+      'description':
+          'PLBN Entikong adalah pusat perbatasan Indonesia-Malaysia, mendukung perdagangan antarnegara serta arus barang dan orang.'
     },
     {
-      'image': 'lib/images/plbnSkouw.png',
+      'image': 'lib/images/PLBN_Jagoibabang.jpg',
+      'title': 'PLBN JAGOIBABANG',
+      'description':
+          'PLBN Jagoibabang adalah pos perbatasan Indonesia-Malaysia di Kalimantan Barat yang memfasilitasi arus barang dan manusia.'
+    },
+    {
+      'image': 'lib/images/PLBN_Motaain.jpg',
+      'title': 'PLBN MOTAAIN',
+      'description':
+          'PLBN Motaain terletak di perbatasan Indonesia-Timor Leste, mendukung mobilitas orang dan barang serta hubungan ekonomi.'
+    },
+    {
+      'image': 'lib/images/PLBN_Motamasin.jpeg',
+      'title': 'PLBN MOTAMASIN',
+      'description':
+          'PLBN Motamasin adalah pintu gerbang perbatasan antara Indonesia dan Timor Leste, mendukung perdagangan dan arus orang.'
+    },
+    {
+      'image': 'lib/images/PLBN_Serasan.jpeg',
+      'title': 'PLBN SERASAN',
+      'description':
+          'PLBN Serasan merupakan pos perbatasan yang terletak di Kepulauan Riau, mendukung hubungan antar negara tetangga.'
+    },
+    {
+      'image': 'lib/images/PLBN_Skouw.png',
       'title': 'PLBN SKOUW',
-      'description': 'PLBN Skouw adalah pintu perbatasan Indonesia-Papua Nugini yang mendukung arus barang, orang, dan pertumbuhan ekonomi lokal.'
+      'description':
+          'PLBN Skouw adalah pintu perbatasan Indonesia-Papua Nugini, mendukung ekonomi lokal dengan arus barang dan orang.'
+    },
+    {
+      'image': 'lib/images/PLBN_Sota.png',
+      'title': 'PLBN SOTA',
+      'description':
+          'PLBN Sota terletak di perbatasan Papua dengan Papua Nugini, mendukung interaksi ekonomi dan sosial antarnegara.'
+    },
+    {
+      'image': 'lib/images/PLBN_Wini.jpeg',
+      'title': 'PLBN WINI',
+      'description':
+          'PLBN Wini terletak di perbatasan Indonesia dengan Timor Leste, memfasilitasi perdagangan dan interaksi lintas batas.'
+    },
+    {
+      'image': 'lib/images/PLBN_Yatetkun.jpeg',
+      'title': 'PLBN YATETKUN',
+      'description':
+          'PLBN Yatetkun adalah pintu perbatasan di Papua yang memfasilitasi perdagangan dan mobilitas antarnegara tetangga.'
     },
   ];
 
@@ -63,21 +114,23 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.05),
+        padding: EdgeInsets.symmetric(
+            horizontal: screenWidth * 0.05, vertical: screenHeight * 0.05),
         child: Stack(
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 15),
-                
+
                 // Responsive image container
                 AnimatedOpacity(
                   opacity: isAnimating ? 0 : 1,
                   duration: const Duration(milliseconds: 300),
                   child: Container(
                     width: double.infinity,
-                    height: screenHeight * 0.4, // Use height as a fraction of the screen height
+                    height: screenHeight *
+                        0.4, // Use height as a fraction of the screen height
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage(contentList[currentIndex]['image']!),
@@ -95,7 +148,8 @@ class _DashboardState extends State<Dashboard> {
                   opacity: isAnimating ? 0 : 1,
                   duration: const Duration(milliseconds: 300),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 15),
                     child: Text(
                       contentList[currentIndex]['title']!,
                       style: TextStyle(
@@ -112,7 +166,8 @@ class _DashboardState extends State<Dashboard> {
                   opacity: isAnimating ? 0 : 1,
                   duration: const Duration(milliseconds: 300),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 15),
                     child: Text(
                       contentList[currentIndex]['description']!,
                       style: TextStyle(
@@ -130,7 +185,10 @@ class _DashboardState extends State<Dashboard> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.only(left: screenWidth * 0.05, right: screenWidth * 0.05, bottom: 30),
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.05,
+                    right: screenWidth * 0.05,
+                    bottom: 10),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -164,7 +222,8 @@ class _DashboardState extends State<Dashboard> {
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: const Color(0xFF1068BB),
-                                  fontSize: screenWidth * 0.04, // Responsive font size
+                                  fontSize: screenWidth *
+                                      0.04, // Responsive font size
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -184,7 +243,8 @@ class _DashboardState extends State<Dashboard> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF1068BB),
                             foregroundColor: Colors.white,
-                            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.1, vertical: 15),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.1, vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),

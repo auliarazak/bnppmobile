@@ -133,10 +133,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Text(
                       'Selamat Datang',
                       style: TextStyle(
-                        fontFamily: 'Plus Jakarta Sans',
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          fontFamily: 'Plus Jakarta Sans',
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 17, 48, 85)),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -147,7 +147,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
-                          color: _isEmailValid ? Colors.blue : Colors.red, // Kondisi warna border
+                          color: _isEmailValid
+                              ? Colors.blue
+                              : Colors.red, // Kondisi warna border
                         ),
                         borderRadius: BorderRadius.circular(5),
                       ),
@@ -157,15 +159,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           children: [
                             Icon(
                               Icons.person,
-                              color: _isEmailValid ? Colors.blue : Colors.red, // Ikon juga mengikuti validasi
+                              color: _isEmailValid
+                                  ? Colors.blue
+                                  : Colors.red, // Ikon juga mengikuti validasi
                             ),
                             const SizedBox(width: 10),
                             Expanded(
                               child: TextField(
                                 controller: _emailController,
+                                onChanged: (value) {
+                                  setState(() {
+                                    _isEmailValid = _isValidEmail(
+                                        value); // Panggil validasi saat input berubah
+                                  });
+                                },
                                 decoration: InputDecoration(
                                   hintText: 'Email',
-                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   border: InputBorder.none,
                                   errorText: _isEmailValid
                                       ? null
@@ -206,7 +217,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 obscureText: !_isPasswordVisible,
                                 decoration: InputDecoration(
                                   hintText: 'Password',
-                                  hintStyle: const TextStyle(color: Colors.grey),
+                                  hintStyle:
+                                      const TextStyle(color: Colors.grey),
                                   border: InputBorder.none,
                                   suffixIcon: IconButton(
                                     icon: Icon(
@@ -217,7 +229,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        _isPasswordVisible = !_isPasswordVisible;
+                                        _isPasswordVisible =
+                                            !_isPasswordVisible;
                                       });
                                     },
                                   ),
@@ -300,7 +313,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ],
           ),
-
         ),
       ),
     );

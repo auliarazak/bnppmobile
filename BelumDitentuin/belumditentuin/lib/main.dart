@@ -1,7 +1,8 @@
 import 'package:belumditentuin/Dashboard/dashboard.dart';
 import 'package:belumditentuin/Home/home.dart';
-import 'package:belumditentuin/LoginScreen/loginscreen.dart';
+import 'package:belumditentuin/Layanan/layanan.dart';
 import 'package:belumditentuin/SplashScreen/splashscreen.dart';
+import 'package:belumditentuin/tes_lihat.dart';
 import 'package:flutter/material.dart';
 
 void main() {
