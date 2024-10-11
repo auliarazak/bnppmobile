@@ -1,4 +1,4 @@
-import 'package:belumditentuin/Dashboard/dashboard.dart';
+
 import 'package:belumditentuin/Home/home.dart';
 import 'package:belumditentuin/Layanan/layanan.dart';
 import 'package:belumditentuin/SplashScreen/splashscreen.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Home(),
+      home: Home(),
     );
   }
 }

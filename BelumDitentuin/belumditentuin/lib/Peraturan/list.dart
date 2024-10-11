@@ -12,7 +12,6 @@ class _ListPeraturanState extends State<ListPeraturan> {
   bool _isSearching = false;
   bool _isDetailSearchVisible = false;
 
-  // List contoh data peraturan untuk ditampilkan
   final List<Map<String, String>> _peraturanList = [
     {
       'title': 'Peraturan Badan Nomor 1 Tahun 2024',
@@ -61,7 +60,6 @@ class _ListPeraturanState extends State<ListPeraturan> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Pencarian
             Row(
               children: [
                 Expanded(
@@ -75,8 +73,8 @@ class _ListPeraturanState extends State<ListPeraturan> {
                         color: Colors.red,
                       ),
                       border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 10), // Padding ditambah
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 10),
                     ),
                     onTap: () {
                       setState(() {
@@ -92,15 +90,14 @@ class _ListPeraturanState extends State<ListPeraturan> {
                       print('Mencari: ${_searchController.text}');
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.blue,
-                      onPrimary: Colors.white,
+                      backgroundColor: Colors.blue,
+                      foregroundColor: Colors.white,
                     ),
                     child: const Text('Cari'),
                   ),
               ],
             ),
             const SizedBox(height: 16),
-            // Pencarian Detail
             Center(
               child: GestureDetector(
                 onTap: () {
@@ -134,12 +131,11 @@ class _ListPeraturanState extends State<ListPeraturan> {
                 children: [
                   _buildTextField('Nomor'),
                   _buildTextField('Tahun'),
-                  _buildSearchButton(), // Tombol yang diubah
+                  _buildSearchButton(),
                 ],
               ),
             ],
             const SizedBox(height: 20),
-            // Daftar peraturan yang dapat di-scroll
             Expanded(
               child: ListView.builder(
                 itemCount: _peraturanList.length,
@@ -157,61 +153,44 @@ class _ListPeraturanState extends State<ListPeraturan> {
     );
   }
 
-  // Fungsi untuk membuat card peraturan seperti pada gambar
   Widget _buildPeraturanCard(String title, String description) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10), // Sudut rounded
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header bagian atas
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Perban',
+                  'Perban', //ganti ini dengan memanggil
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  decoration: BoxDecoration(
-                    color: const Color(0xff198754), // Warna hijau dengan kode 0xff
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: const Text(
-                    'Berlaku',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
               ],
             ),
             const SizedBox(height: 10),
-            // Divider pembatas antara "Berlaku" dan "Peraturan Badan"
             const Divider(
-              color: Color.fromARGB(109, 63, 58, 58),// Warna hitam
-              thickness: 1, // Ketebalan garis
+              color: Color.fromARGB(109, 63, 58, 58),
+              thickness: 1,
             ),
             const SizedBox(height: 10),
-            // Icon PDF dan detail peraturan
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Icon PDF
                 const Icon(
-                  Icons.picture_as_pdf,
+                  Icons.slideshow, //ganti ini dengan memanggil nama_tipe pada tabel tipe_dokumens 
                   color: Colors.blue,
                   size: 40,
                 ),
                 const SizedBox(width: 10),
-                // Detail peraturan
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,33 +209,30 @@ class _ListPeraturanState extends State<ListPeraturan> {
               ],
             ),
             const SizedBox(height: 20),
-            // Divider pembatas antara teks peraturan dengan tombol unduh
             const Divider(
-              color: Color.fromARGB(109, 63, 58, 58), // Warna hitam
-              thickness: 1, // Ketebalan garis
+              color: Color.fromARGB(109, 63, 58, 58),
+              thickness: 1,
             ),
-           const SizedBox(height: 10),
-// Tombol Unduh
-Row(
-  mainAxisAlignment: MainAxisAlignment.end,
-  children: [
-    ElevatedButton.icon(
-      onPressed: () {
-        print('Mengunduh peraturan...');
-      },
-      icon: const Icon(Icons.download),
-      label: const Text('Unduh'),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.blue,
-        onPrimary: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5), // Border radius circular
-        ),
-      ),
-    ),
-  ],
-),
-
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    print('Melihat Peraturan');
+                  },
+                  icon: const Icon(Icons.remove_red_eye),
+                  label: const Text('View'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -265,14 +241,14 @@ Row(
 
   Widget _buildTextField(String hintText) {
     return SizedBox(
-      width: 160, 
-      height: 50, 
+      width: 160,
+      height: 50,
       child: TextField(
         decoration: InputDecoration(
           hintText: hintText,
           border: const OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(
-              vertical: 15, horizontal: 10), // Padding ditambah
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         ),
       ),
     );
@@ -280,14 +256,14 @@ Row(
 
   Widget _buildDropdownField(String label, List<String> options) {
     return SizedBox(
-      width: 160, // Lebar diperbesar
-      height: 50, // Tinggi diperbesar
+      width: 160,
+      height: 50,
       child: DropdownButtonFormField<String>(
         decoration: InputDecoration(
           labelText: label,
           border: const OutlineInputBorder(),
-          contentPadding: const EdgeInsets.symmetric(
-              vertical: 15, horizontal: 10), // Padding ditambah
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
         ),
         items: options.map((String value) {
           return DropdownMenuItem<String>(
@@ -296,29 +272,26 @@ Row(
           );
         }).toList(),
         onChanged: (value) {
-          setState(() {
-            
-          });
+          setState(() {});
         },
       ),
     );
   }
 
   Widget _buildSearchButton() {
-  return SizedBox(
-    width: 160,  // Lebar sama dengan TextField
-    height: 50,  // Tinggi sama dengan TextField
-    child: ElevatedButton(
-      onPressed: () {
-        print('Mencari...');
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Colors.blue,    // Background button
-        onPrimary: Colors.white, // Warna teks button
+    return SizedBox(
+      width: 160,
+      height: 50,
+      child: ElevatedButton(
+        onPressed: () {
+          print('Mencari...');
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+        ),
+        child: const Text('Cari'),
       ),
-      child: const Text('Cari'),
-    ),
-  );
-}
-
+    );
+  }
 }
