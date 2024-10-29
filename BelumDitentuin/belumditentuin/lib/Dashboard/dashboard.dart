@@ -18,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
           'PLBN Aruk adalah pintu perbatasan antara Indonesia dan Malaysia, mendukung arus barang dan orang serta pertumbuhan ekonomi lokal.'
     },
     {
-      'image': 'lib/images/PLBN_Badau.jpg',
+      'image': 'lib/images/PLBN_Badau.png',
       'title': 'PLBN BADAU',
       'description':
           'PLBN Badau terletak di Kalimantan Barat, Indonesia, dan berfungsi sebagai pintu gerbang perbatasan dengan Malaysia.'
@@ -30,25 +30,25 @@ class _DashboardState extends State<Dashboard> {
           'PLBN Entikong adalah pusat perbatasan Indonesia-Malaysia, mendukung perdagangan antarnegara serta arus barang dan orang.'
     },
     {
-      'image': 'lib/images/PLBN_Jagoibabang.jpg',
+      'image': 'lib/images/PLBN_Jagoibabang.png',
       'title': 'PLBN JAGOIBABANG',
       'description':
           'PLBN Jagoibabang adalah pos perbatasan Indonesia-Malaysia di Kalimantan Barat yang memfasilitasi arus barang dan manusia.'
     },
     {
-      'image': 'lib/images/PLBN_Motaain.jpg',
+      'image': 'lib/images/PLBN_Motaain.png',
       'title': 'PLBN MOTAAIN',
       'description':
           'PLBN Motaain terletak di perbatasan Indonesia-Timor Leste, mendukung mobilitas orang dan barang serta hubungan ekonomi.'
     },
     {
-      'image': 'lib/images/PLBN_Motamasin.jpeg',
+      'image': 'lib/images/PLBN_Motamasin2.png',
       'title': 'PLBN MOTAMASIN',
       'description':
           'PLBN Motamasin adalah pintu gerbang perbatasan antara Indonesia dan Timor Leste, mendukung perdagangan dan arus orang.'
     },
     {
-      'image': 'lib/images/PLBN_Serasan.jpeg',
+      'image': 'lib/images/PLBN_Serasan.png',
       'title': 'PLBN SERASAN',
       'description':
           'PLBN Serasan merupakan pos perbatasan yang terletak di Kepulauan Riau, mendukung hubungan antar negara tetangga.'
@@ -66,13 +66,13 @@ class _DashboardState extends State<Dashboard> {
           'PLBN Sota terletak di perbatasan Papua dengan Papua Nugini, mendukung interaksi ekonomi dan sosial antarnegara.'
     },
     {
-      'image': 'lib/images/PLBN_Wini.jpeg',
+      'image': 'lib/images/PLBN_Wini.png',
       'title': 'PLBN WINI',
       'description':
           'PLBN Wini terletak di perbatasan Indonesia dengan Timor Leste, memfasilitasi perdagangan dan interaksi lintas batas.'
     },
     {
-      'image': 'lib/images/PLBN_Yatetkun.jpeg',
+      'image': 'lib/images/PLBN_Yatetkun.png',
       'title': 'PLBN YATETKUN',
       'description':
           'PLBN Yatetkun adalah pintu perbatasan di Papua yang memfasilitasi perdagangan dan mobilitas antarnegara tetangga.'

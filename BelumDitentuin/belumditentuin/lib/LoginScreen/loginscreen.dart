@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:http/http.dart' as http;
-import 'package:belumditentuin/Home/home.dart';
+import 'package:belumditentuin/Home/home1.dart';
 import 'dart:convert';
 
 class LoginScreen extends StatefulWidget {
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Opacity(
                 opacity: 0.05,
                 child: Image.asset(
-                  'lib/images/BnppLogo.png',
+                  'lib/images/PeraturanBNPP.png',
                   fit: BoxFit.cover,
                   width: 400,
                   height: 400,

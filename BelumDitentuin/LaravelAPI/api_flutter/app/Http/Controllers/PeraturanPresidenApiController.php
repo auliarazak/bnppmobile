@@ -15,4 +15,6 @@ class PeraturanPresidenApiController extends Controller
         // Mengembalikan response JSON
         return response()->json($peraturans);
     }
+
+    
 }

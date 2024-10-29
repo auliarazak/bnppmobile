@@ -31,20 +31,31 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.6
-  cupertino_icons: ^1.0.2
-  flutter_launcher_icons: ^0.13.1
   syncfusion_flutter_pdfviewer: ^20.2.45
   file_picker: ^5.0.1
   path_provider: ^2.0.11
+  lottie: ^2.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.9.2"
+  flutter_native_splash: ^2.1.1
 
 flutter_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "lib/images/PeraturanBNPP.png"
+  image_path: "lib/images/bnppicon.jpg"  # Icon launcher path
+  # adaptive_icon_background: "lib/images/bnppicon.jpg"    # Optional for Android adaptive icon background
+  # adaptive_icon_foreground: "lib/images/bnppicon.jpg"
+  # adaptive_icon_foreground_inset: 16
+
+flutter_native_splash:
+  color: "#1068BB" # Warna background splash screen
+  image: lib/images/bnppicon.jpg # Splash screen image
+  android: true
+  ios: true
+  android_gravity: center # Posisi gambar splash screen di Android
   
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -67,31 +78,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/files/a.pdf
-    - lib/files/b.pdf
-
-    - lib/images/PeraturanMentri.png
-    - lib/images/PeraturanPresiden.png
-    - lib/images/PeraturanBNPP.png
-    - lib/images/Peraturan.png
-    - lib/images/Peraturan2.png
-    - lib/images/Peraturan3.png
-    - lib/images/Peraturan4.png
-    - lib/images/Peraturan5.png
-    - lib/images/Others.png
-
-
-    - lib/images/PLBN_Aruk.png
-    - lib/images/PLBN_Badau.png
-    - lib/images/PLBN_Entikong.png
-    - lib/images/PLBN_Jagoibabang.png
-    - lib/images/PLBN_Motaain.png
-    - lib/images/PLBN_Motamasin2.png
-    - lib/images/PLBN_Serasan.png
-    - lib/images/PLBN_Skouw.png
-    - lib/images/PLBN_Sota.png
-    - lib/images/PLBN_Yatetkun.png
-    - lib/images/PLBN_Wini.png
+    - lib/files/
+    - lib/images/
+    - lib/Component/lottie/
 
     
 
