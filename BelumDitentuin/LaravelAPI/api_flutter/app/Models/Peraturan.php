@@ -9,23 +9,18 @@ class Peraturan extends Model
 {
     use HasFactory;
 
-    // Tentukan nama tabel jika tidak mengikuti konvensi plural
     protected $table = 'peraturans';
-
-    // Jika Anda ingin mengatur primary key
     protected $primaryKey = 'peraturan_id';
+    public $timestamps = true;
 
-    // Jika primary key bukan auto-increment
-    // public $incrementing = false;
-
-    // Tentukan atribut yang dapat diisi massal
     protected $fillable = [
         'user_id',
-        'tipe_dok_id',
         'jenis_peraturan_id',
         'teu_id',
         'judul_peraturan',
         'nomor_peraturan',
+        'tahun_peraturan',
+        'pdf_path',
         'tempat_penetapan_peraturan',
         'tgl_penetapan_peraturan',
         'tgl_pengundangan_peraturan',
@@ -41,15 +36,17 @@ class Peraturan extends Model
         'peraturan_terkait',
     ];
 
+    protected $casts = [
+        'tgl_penetapan_peraturan' => 'date',
+        'tgl_pengundangan_peraturan' => 'date',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
     // Tentukan relasi jika ada
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'user_id');
-    }
-
-    public function tipeDokumen()
-    {
-        return $this->belongsTo(TipeDokumen::class, 'tipe_dok_id', 'tipe_dok_id');
     }
 
     public function jenisPeraturan()

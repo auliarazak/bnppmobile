@@ -34,15 +34,6 @@ class DatabaseSeeder extends Seeder
             ['nama_teu' => 'Kementrian Luar Negeri, Indonesia'],
             ['nama_teu' => 'Sektretarian Negara, Indonesia'],
         ]);
-
-        //tipe dokumen
-        DB::table('tipe_dokumens')->insert([
-            ['nama_tipe' => 'PDF'],
-            ['nama_tipe' => 'DOC'],
-            ['nama_tipe' => 'XLS'],
-        ]);
-
-
         \App\Models\Peraturan::factory(20)->create();
 
 
