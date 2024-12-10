@@ -1,268 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:siranta/Peraturans/BNPP/list_peraturan_bnpp.dart';
-import 'package:siranta/Peraturans/Crud/Edit/list_edit_peraturan.dart';
-import 'package:siranta/Peraturans/Crud/Create/input_peraturan.dart';
-import 'package:siranta/Peraturans/Mentri/list_peraturan_mentri.dart';
-import 'package:siranta/Peraturans/MoU/list_peraturan_mou.dart';
-import 'package:siranta/Peraturans/Pemerintah/list_peraturan_pemerintah.dart';
-import 'package:siranta/Peraturans/Presiden/list_peraturan_presiden.dart';
-import 'package:siranta/Peraturans/UU/list_peraturan_uu.dart';
+import 'package:siranta/Menus/sub_mainmenu.dart'; // Pastikan import file SubMenu
 
-class MainMenuScreen extends StatefulWidget {
-  const MainMenuScreen({super.key});
+class MainMenu extends StatefulWidget {
+  const MainMenu({super.key});
 
   @override
-  State<MainMenuScreen> createState() => _MainMenuScreenState();
+  State<MainMenu> createState() => _MainMenuState();
 }
 
-class _MainMenuScreenState extends State<MainMenuScreen>
-    with SingleTickerProviderStateMixin {
-  bool isMenuOpen = false;
-  late final AnimationController _animationController = AnimationController(
-    duration: const Duration(milliseconds: 300),
-    vsync: this,
-  );
-
-  late final Animation<double> _translateButton = Tween<double>(
-    begin: -10,
-    end: -10,
-  ).animate(CurvedAnimation(
-    parent: _animationController,
-    curve: Curves.easeInOut,
-  ));
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-
-  void _toggleMenu() {
-    setState(() {
-      isMenuOpen = !isMenuOpen;
-    });
-    if (isMenuOpen) {
-      _animationController.forward();
-    } else {
-      _animationController.reverse();
-    }
-  }
+class _MainMenuState extends State<MainMenu> {
+  final List<Map<String, String>> menuItems = [
+    {
+      'title': 'Kebijakan Pengelolaan \nPerbatasan Negara',
+      'image': 'assets/images/MenuPeraturan.jpg',
+      'type': 'left'
+    },
+    {
+      'title': 'Paparan dan Surat Penting',
+      'image': 'assets/images/MenuPaparan.jpg',
+      'type': 'right'
+    },
+    {
+      'title': 'Produk Setup BNPP',
+      'image': 'assets/images/MenuProduk.jpg',
+      'type': 'left'
+    },
+    {
+      'title': 'Berita',
+      'image': 'assets/images/MenuBerita.jpg',
+      'type': 'right'
+    },
+    {
+      'title': 'Pengaturan Data',
+      'image': 'assets/images/MenuManajemen.jpg',
+      'type': 'left'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF1068BB), // Warna biru
-        title: const Text(
-          'Main Menu',
-          style: TextStyle(
-            fontFamily:
-                'Plus Jakarta Sans', // Menggunakan font Plus Jakarta Sans
-            color: Colors.white, // Warna teks putih
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back,
-              color: Colors.white), // Warna icon putih
-          onPressed: () {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
-          },
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(10), // Padding di sekitar grid
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 3 kolom
-            crossAxisSpacing: 10, // Spasi horizontal antar item
-            mainAxisSpacing: 10, // Spasi vertikal antar item
-          ),
-          itemCount: 12, // Ganti sesuai jumlah tombol yang ingin ditampilkan
-          itemBuilder: (context, index) {
-            switch (index) {
-              case 0:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/PeraturanPresiden.png',
-                  label: 'Peraturan Presiden',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanPresiden(),
-                      ),
-                    );
-                  },
-                );
-              case 1:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/PeraturanMentri.png',
-                  label: 'Peraturan Mentri',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanMentri(),
-                      ),
-                    );
-                  },
-                );
-              case 2:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/PeraturanBulu.png',
-                  label: 'Peraturan Pemerintah',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanPemerintah(),
-                      ),
-                    );
-                  },
-                );
-              case 3:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/PeraturanPalu.png',
-                  label: 'Undang-Undang',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanUU(),
-                      ),
-                    );
-                  },
-                );
-              case 4:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/Bnpp.png',
-                  label: 'Peraturan BNPP',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanBnpp(),
-                      ),
-                    );
-                  },
-                );
-              case 5:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/Note.png',
-                  label: 'Naskah Kesepahaman',
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListPeraturanMou(),
-                      ),
-                    );
-                  },
-                );
-              case 6:
-                return _buildServiceButton(
-                  imagePath: 'assets/icons/Panduan.png',
-                  label: 'Panduan Pengguna',
-                  onTap: () {},
-                );
-              default:
-                return SizedBox(); // Return empty widget if index is out of range
-            }
-          },
-        ),
-      ),
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Delete Button
-          // AnimatedBuilder(
-          //   animation: _animationController,
-          //   builder: (context, child) {
-          //     return Transform.translate(
-          //       offset: Offset(0, _translateButton.value * 0.4),
-          //       child: ScaleTransition(
-          //         scale: CurvedAnimation(
-          //           parent: _animationController,
-          //           curve: Curves.easeOut,
-          //         ),
-          //         child: FloatingActionButton(
-          //           heroTag: "btnDelete",
-          //           backgroundColor: Colors.red,
-          //           mini: true, // Membuat FAB lebih kecil
-          //           onPressed: () {},
-          //           child: const Icon(Icons.delete, color: Colors.white),
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ),
-          // Edit Button
-          AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(0, _translateButton.value * 0.25),
-                child: ScaleTransition(
-                  scale: CurvedAnimation(
-                    parent: _animationController,
-                    curve: Curves.easeOut,
-                  ),
-                  child: FloatingActionButton(
-                    heroTag: "btnEdit",
-                    backgroundColor: Colors.yellow[600],
-                    mini: true,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ListEditPeraturan(),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.edit, color: Colors.black),
-                  ),
+      backgroundColor: Colors.blue.shade50,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.blue.shade50,
+            pinned: true,
+            floating: false,
+            expandedHeight: 70.0,
+            collapsedHeight: 56.0,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(
+                'Menu',
+                style: TextStyle(
+                  fontFamily: "Plus Jakarta Sans",
+                  fontWeight: FontWeight.bold,
+                  fontSize: screenWidth < 360 ? 24 : 30,
+                  color: Colors.blue.shade900,
                 ),
-              );
-            },
+                textScaler: TextScaler.linear(screenWidth < 360 ? 0.7 : 1.0),
+              ),
+              centerTitle: true,
+            ),
           ),
-          SizedBox(height: 15,),
-          // Upload Button
-          AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(0, _translateButton.value * 0.10),
-                child: ScaleTransition(
-                  scale: CurvedAnimation(
-                    parent: _animationController,
-                    curve: Curves.easeOut,
-                  ),
-                  child: FloatingActionButton(
-                    heroTag: "btnDownload",
-                    backgroundColor: Colors.blue,
-                    mini: true,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => FormInputPeraturan(),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.upload, color: Colors.white),
-                  ),
-                ),
-              );
-            },
-          ),
-          const SizedBox(height: 8), // Spacing between buttons
-          // Menu Toggle Button
-          FloatingActionButton(
-            heroTag: "btnMenu",
-            backgroundColor: Colors.blue,
-            onPressed: _toggleMenu,
-            child: AnimatedIcon(
-              icon: AnimatedIcons.menu_close,
-              progress: _animationController,
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final item = menuItems[index];
+                  return _buildAnimatedMenuItem(
+                    context,
+                    title: item['title']!,
+                    imageUrl: item['image']!,
+                    isLeft: item['type'] == 'left',
+                    delay: index * 200,
+                    screenWidth: screenWidth,
+                  );
+                },
+                childCount: menuItems.length,
+              ),
             ),
           ),
         ],
@@ -270,47 +89,137 @@ class _MainMenuScreenState extends State<MainMenuScreen>
     );
   }
 
-  Widget _buildServiceButton({
-    required String imagePath,
-    required String label,
-    required VoidCallback onTap,
+  Widget _buildAnimatedMenuItem(
+    BuildContext context, {
+    required String title,
+    required String imageUrl,
+    required bool isLeft,
+    required int delay,
+    required double screenWidth,
+  }) {
+    return TweenAnimationBuilder(
+      duration: const Duration(milliseconds: 800),
+      tween: Tween<double>(begin: 0, end: 1),
+      curve: Curves.easeOutQuint,
+      builder: (context, opacity, child) {
+        return Transform.translate(
+          offset: Offset(opacity * (isLeft ? -20 : 20), 0),
+          child: Opacity(
+            opacity: opacity,
+            child: _buildMenuItem(
+              context,
+              title: title,
+              imageUrl: imageUrl,
+              isLeft: isLeft,
+              screenWidth: screenWidth,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildMenuItem(
+    BuildContext context, {
+    required String title,
+    required String imageUrl,
+    required bool isLeft,
+    required double screenWidth,
   }) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation, secondaryAnimation) => SubMenu(
+              backgroundImage: imageUrl,
+              menuTitle: title,
+            ),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(0.0, 1.0);
+              const end = Offset.zero;
+              final tween = Tween(begin: begin, end: end);
+              final offsetAnimation = animation.drive(tween);
+
+              return SlideTransition(
+                position: offsetAnimation,
+                child: child,
+              );
+            },
+          ),
+        );
+      },
       child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              imagePath,
-              width: 40,
-              height: 40,
-              fit: BoxFit.contain,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              label,
-              style: const TextStyle(
-                fontFamily: 'Plus Jakarta Sans',
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+        child: AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              Hero(
+                tag: imageUrl,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(15.0),
+                    child: Image.asset(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-            ),
-          ],
+
+              // Overlay gradien
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15.0),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.2),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              // Posisi teks
+              Positioned(
+                bottom: 20,
+                left: isLeft ? 20 : null,
+                right: !isLeft ? 20 : null,
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: screenWidth < 360 ? 16 : 20.0,
+                    fontWeight: FontWeight.bold,
+                    shadows: const [
+                      Shadow(
+                        blurRadius: 10.0,
+                        color: Colors.black,
+                        offset: Offset(2.0, 2.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

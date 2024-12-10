@@ -29,8 +29,8 @@ class PeraturanFactory extends Factory
 
         return [
             'user_id' => $this->faker->numberBetween(1, 10),
-            'jenis_peraturan_id' => $this->faker->numberBetween(1, 6),
-            'teu_id' => $this->faker->numberBetween(1, 4),
+            'jenis_peraturan_id' => $this->faker->numberBetween(1, 11),
+            'teu_id' => $this->faker->numberBetween(1, 27),
             'judul_peraturan' => $this->faker->sentence(5),
             'nomor_peraturan' => $this->faker->unique()->numberBetween(1, 100),
             'tahun_peraturan' => $this->faker->numberBetween(1945, 2025),

@@ -11,11 +11,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $primaryKey = 'user_id';
+
     protected $fillable = [
         'nip',                 // Tambahkan nip agar dapat diisi
         'email',          // Ubah menjadi email_user
@@ -51,7 +48,7 @@ class User extends Authenticatable
      */
     public function dataUser()
     {
-        return $this->belongsTo(DataUser::class, 'nip', 'nip');
+        return $this->hasOne(DataUser::class, 'user_id', 'user_id');
     }
     
 }

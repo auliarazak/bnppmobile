@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class DataUser extends Model
@@ -13,18 +14,17 @@ class DataUser extends Model
     // Nama tabel jika tidak mengikuti konvensi
     protected $table = 'data_users';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+    protected $primaryKey = 'nip';
+
     protected $fillable = [
         'nip',
+        'user_id',
         'nama',
+        'foto_profil',
         'jenis_kelamin',
         'tgl_lahir',
         'no_telp',
-        'alamat',
+        'alamat'
     ];
 
     /**
@@ -32,8 +32,8 @@ class DataUser extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user(): HasOne
+    public function user(): belongsTo
     {
-        return $this->hasOne(User::class, 'nip', 'nip');
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 }

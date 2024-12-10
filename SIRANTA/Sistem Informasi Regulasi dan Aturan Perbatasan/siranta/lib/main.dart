@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:siranta/Menus/mainMenu.dart';
-import 'package:siranta/Pendaftaran/email_verifikasi.dart';
-import 'package:siranta/Pendaftaran/registration_screen.dart';
-import 'package:siranta/tesdecode.dart';
+import 'package:siranta/Dashboard/dashboard.dart';
+import 'package:siranta/Dashboard/home.dart';
+import 'package:siranta/Login/login_screen.dart';
+import 'package:siranta/PLBN/profil_perbatasan.dart';
+import 'package:siranta/Paparan/list_paparan.dart';
+import 'package:siranta/Menus/mainmenu.dart';
+import 'package:siranta/PengaturanData/peraturan.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,10 +21,11 @@ class MyApp extends StatelessWidget {
       title: 'SIRANTA',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'Plus Jakarta Sans',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: const RegistrationScreen(),
+      home: const MainMenu(),  
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:siranta/Login/login_screen.dart';
-import 'package:siranta/Menus/mainMenu.dart';
 import 'dart:async';
 import 'package:siranta/Pendaftaran/api_service.dart';
 
@@ -122,7 +121,7 @@ class _VerifikasiEmailState extends State<VerifikasiEmail> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const MainMenuScreen(),
+            builder: (context) => const LoginScreen(),
           ),
         );
       }

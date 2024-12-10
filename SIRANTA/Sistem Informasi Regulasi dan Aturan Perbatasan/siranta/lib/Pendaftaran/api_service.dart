@@ -17,8 +17,6 @@ class ApiException implements Exception {
 class ApiService {
   static void _logError(String message, dynamic error, StackTrace? stackTrace) {
     // Untuk development
-    print('Error: $message');
-    print('Details: $error');
     if (stackTrace != null) print('Stack trace: $stackTrace');
   }
 
@@ -32,6 +30,7 @@ class ApiService {
     required DateTime tglLahir,
     required String noTelp,
     required String alamat,
+    required int levelUser,
   }) async {
     try {
       // Validasi format input
@@ -55,8 +54,8 @@ class ApiService {
         throw ApiException('Nama harus minimal 3 karakter');
       }
 
-      if (alamat.isEmpty || alamat.length < 10) {
-        throw ApiException('Alamat harus minimal 10 karakter');
+      if (alamat.isEmpty || alamat.length < 5) {
+        throw ApiException('Alamat harus minimal 5 karakter');
       }
 
       // Format tanggal ke yyyy-MM-dd
@@ -66,18 +65,16 @@ class ApiService {
       // Buat payload request
       final Map<String, dynamic> requestBody = {
         'nip': nip.trim(),
-        'email': email.trim().toLowerCase(),
+        'email': email.trim(),
         'password': password,
         'nama': nama.trim(),
         'jenis_kelamin': jenisKelamin,
         'tgl_lahir': formattedDate,
         'no_telp': noTelp.trim(),
         'alamat': alamat.trim(),
+        'level_user': levelUser,
       };
 
-      // Log request untuk debugging
-      print('Request URL: ${ApiConfig.baseUrl}register');
-      print('Request body: ${jsonEncode(requestBody)}');
 
       final response = await http.post(
         Uri.parse('${ApiConfig.baseUrl}register'),
@@ -87,10 +84,6 @@ class ApiService {
         },
         body: jsonEncode(requestBody),
       );
-
-      // Log response untuk debugging
-      print('Response status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
 
       // Cek apakah response body kosong
       if (response.body.isEmpty) {
@@ -185,11 +178,11 @@ class ApiService {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Row(
+        title: const Row(
           children: [
-            const Icon(Icons.error, color: Colors.red),
-            const SizedBox(width: 8),
-            const Text(
+            Icon(Icons.error, color: Colors.red),
+            SizedBox(width: 8),
+            Text(
               'Error',
               style: TextStyle(
                 color: Colors.red,
@@ -261,11 +254,6 @@ class ApiService {
         throw ApiException('Kode verifikasi harus 6 digit');
       }
 
-      // Log request untuk debugging
-      debugPrint('Sending verification request:');
-      debugPrint('userId: $userId');
-      debugPrint('code: $verificationCode');
-
       final response = await http.post(
         Uri.parse('${ApiConfig.baseUrl}verify-email'),
         headers: {
@@ -292,10 +280,11 @@ class ApiService {
         return responseData;
       } else {
         String errorMessage;
-        
+
         switch (response.statusCode) {
           case 400:
-            errorMessage = responseData['message'] ?? 'Kode verifikasi tidak valid';
+            errorMessage =
+                responseData['message'] ?? 'Kode verifikasi tidak valid';
             break;
           case 404:
             errorMessage = 'User tidak ditemukan';
@@ -314,7 +303,8 @@ class ApiService {
       throw ApiException('Format data tidak valid');
     } on http.ClientException catch (e) {
       debugPrint('Client Exception: $e');
-      throw ApiException('Tidak dapat terhubung ke server. Periksa koneksi internet Anda');
+      throw ApiException(
+          'Tidak dapat terhubung ke server. Periksa koneksi internet Anda');
     } catch (e) {
       debugPrint('Verification error: $e');
       if (e is ApiException) {
@@ -368,6 +358,257 @@ class ApiService {
       final errorMessage = 'Terjadi kesalahan: ${e.toString()}';
       showErrorDialog(context, errorMessage);
       throw ApiException(errorMessage);
+    }
+  }
+
+  static Future<Map<String, dynamic>> sendResetCode({
+    required BuildContext context,
+    required String email,
+  }) async {
+    try {
+      // Validasi email sebelum request
+      if (email.isEmpty) {
+        throw ApiException('Email tidak boleh kosong');
+      }
+
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}forgot-password'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email.trim(),
+        }),
+      );
+
+      if (response.body.isEmpty) {
+        throw ApiException('Server mengembalikan response kosong');
+      }
+
+      final responseData = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode == 200) {
+        return responseData;
+      } else {
+        String errorMessage;
+
+        switch (response.statusCode) {
+          case 404:
+            errorMessage = 'Email tidak terdaftar';
+            break;
+          case 422:
+            errorMessage =
+                responseData['message'] ?? 'Format email tidak valid';
+            break;
+          case 429:
+            errorMessage = 'Terlalu banyak percobaan, silakan coba lagi nanti';
+            break;
+          case 500:
+            errorMessage = 'Terjadi kesalahan pada server';
+            break;
+          default:
+            errorMessage = responseData['message'] ?? 'Terjadi kesalahan';
+        }
+
+        throw ApiException(errorMessage, statusCode: response.statusCode);
+      }
+    } on FormatException catch (e) {
+      debugPrint('Format Exception: $e');
+      throw ApiException('Format data tidak valid');
+    } on http.ClientException catch (e) {
+      debugPrint('Client Exception: $e');
+      throw ApiException(
+          'Tidak dapat terhubung ke server. Periksa koneksi internet Anda');
+    } catch (e) {
+      debugPrint('Unexpected error: $e');
+      if (e is ApiException) {
+        rethrow;
+      }
+      throw ApiException('Terjadi kesalahan: ${e.toString()}');
+    }
+  }
+
+  static Future<void> resetPassword({
+    required BuildContext context,
+    required String userId,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}reset-password'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'user_id': userId,
+          'password': password,
+          'password_confirmation': passwordConfirmation,
+        }),
+      );
+
+      if (response.body.isEmpty) {
+        throw ApiException('Server mengembalikan response kosong');
+      }
+
+      final responseData = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        String errorMessage;
+
+        switch (response.statusCode) {
+          case 400:
+            errorMessage = responseData['message'] ?? 'Data tidak valid';
+            break;
+          case 404:
+            errorMessage = 'User tidak ditemukan';
+            break;
+          case 422:
+            if (responseData.containsKey('errors')) {
+              final errors = responseData['errors'] as Map<String, dynamic>;
+              errorMessage = errors.values.first.toString();
+            } else {
+              errorMessage =
+                  responseData['message'] ?? 'Password tidak memenuhi kriteria';
+            }
+            break;
+          case 500:
+            errorMessage = 'Terjadi kesalahan pada server';
+            break;
+          default:
+            errorMessage = responseData['message'] ??
+                'Terjadi kesalahan saat mengubah password';
+        }
+
+        throw ApiException(errorMessage, statusCode: response.statusCode);
+      }
+    } on FormatException catch (e) {
+      debugPrint('Format Exception: $e');
+      throw ApiException('Format data tidak valid');
+    } on http.ClientException catch (e) {
+      debugPrint('Client Exception: $e');
+      throw ApiException(
+          'Tidak dapat terhubung ke server. Periksa koneksi internet Anda');
+    } catch (e) {
+      debugPrint('Unexpected error: $e');
+      if (e is ApiException) {
+        rethrow;
+      }
+      throw ApiException(
+          'Terjadi kesalahan saat mengubah password: ${e.toString()}');
+    }
+  }
+
+  static Future<void> verifyResetCode({
+    required BuildContext context,
+    required String userId,
+    required String verificationCode,
+  }) async {
+    try {
+
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}verify-reset-code'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'user_id': userId,
+          'kode_verifikasi': verificationCode,
+        }),
+      );
+
+
+      if (response.body.isEmpty) {
+        throw ApiException('Server mengembalikan response kosong');
+      }
+
+      final responseData = jsonDecode(response.body) as Map<String, dynamic>;
+
+      if (response.statusCode == 200) {
+        return;
+      } else {
+        String errorMessage;
+
+        switch (response.statusCode) {
+          case 400:
+            errorMessage =
+                responseData['message'] ?? 'Kode verifikasi tidak valid';
+            break;
+          case 404:
+            errorMessage = 'User tidak ditemukan';
+            break;
+          case 422:
+            errorMessage =
+                responseData['message'] ?? 'Format kode verifikasi tidak valid';
+            break;
+          case 429:
+            errorMessage = 'Terlalu banyak percobaan, silakan coba lagi nanti';
+            break;
+          case 500:
+            errorMessage = 'Terjadi kesalahan pada server';
+            break;
+          default:
+            errorMessage = responseData['message'] ??
+                'Terjadi kesalahan saat verifikasi kode';
+        }
+
+        throw ApiException(errorMessage, statusCode: response.statusCode);
+      }
+    } on FormatException catch (e) {
+      debugPrint('Format Exception: $e');
+      throw ApiException('Format data tidak valid');
+    } on http.ClientException catch (e) {
+      debugPrint('Client Exception: $e');
+      throw ApiException(
+          'Tidak dapat terhubung ke server. Periksa koneksi internet Anda');
+    } catch (e) {
+      debugPrint('Unexpected error: $e');
+      if (e is ApiException) {
+        rethrow;
+      }
+      throw ApiException(
+          'Terjadi kesalahan saat verifikasi kode: ${e.toString()}');
+    }
+  }
+
+  static Future<Map<String, dynamic>> reVerifyEmail({
+    required BuildContext context,
+    required String email,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse('${ApiConfig.baseUrl}reverify'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: jsonEncode({
+          'email': email,
+        }),
+      );
+
+      final data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return {
+          'user_id': data['user_id'].toString(), // Convert to String
+          'is_verified': data['is_verified'],
+        };
+      } else if (response.statusCode == 404) {
+        throw '404:${data['message']}';
+      } else if (response.statusCode == 400) {
+        throw '400:${data['message']}';
+      } else {
+        throw data['message'] ?? 'Terjadi kesalahan pada server';
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

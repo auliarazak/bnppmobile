@@ -72,7 +72,11 @@ class CrudApiController extends Controller
     //for Edit & Delete
     public function AllPeraturan()
     {
-        $peraturans = Peraturan::with(['jenisPeraturan'])->get()->makeHidden(['pdf_path']);
+        $peraturans = Peraturan::with(['jenisPeraturan'])
+            ->orderBy('jenis_peraturan_id')
+            ->get()
+            ->makeHidden(['pdf_path']);
+
         return response()->json($peraturans);
     }
 

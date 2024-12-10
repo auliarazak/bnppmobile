@@ -10,7 +10,7 @@ class PeraturanPemerintahApiController extends Controller
     public function index()
     {
         $peraturans = Peraturan::with(['jenisPeraturan'])
-            ->where('jenis_peraturan_id', 3)
+            ->where('jenis_peraturan_id', 4)
             ->get()
             ->map(function ($peraturan) {
                 return [

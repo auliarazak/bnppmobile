@@ -9,7 +9,7 @@ class AppStyles {
   static const String fontFamily = 'Plus Jakarta Sans';
 
   static const TextStyle headerStyle = TextStyle(
-    color: Color(0xFF4B2A2A),
+    color: Color.fromARGB(255, 42, 54, 75),
     fontSize: 24,
     fontWeight: FontWeight.bold,
     fontFamily: fontFamily,
@@ -62,7 +62,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final _alamatController = TextEditingController();
   DateTime? _selectedDate;
   String? _selectedGender;
+  String? _selectedLevelUser;
 
+  final List<String> _levelUserOptions = [
+    'Berita',
+    'Data Evaluasi',
+    'Kerja Sama',
+    'Program dan Perencanaan'
+  ];
   final List<String> _genderOptions = ['Laki-laki', 'Perempuan'];
 
   @override
@@ -116,7 +123,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void _handleRegister() async {
     if (_formKey.currentState!.validate() &&
         _selectedDate != null &&
-        _selectedGender != null) {
+        _selectedGender != null &&
+        _selectedLevelUser != null) {
       setState(() {
         _isLoading = true;
         _errorMessage = null;
@@ -124,16 +132,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
       try {
         final Map<String, dynamic> response = await ApiService.register(
-          context: context,
-          nip: _nipController.text,
-          email: _emailController.text,
-          password: _passwordController.text,
-          nama: _namaController.text,
-          jenisKelamin: _selectedGender!,
-          tglLahir: _selectedDate!,
-          noTelp: _phoneController.text,
-          alamat: _alamatController.text,
-        );
+            context: context,
+            nip: _nipController.text,
+            email: _emailController.text,
+            password: _passwordController.text,
+            nama: _namaController.text,
+            jenisKelamin: _selectedGender!,
+            tglLahir: _selectedDate!,
+            noTelp: _phoneController.text,
+            alamat: _alamatController.text,
+            levelUser: _getLevelUserValue(_selectedLevelUser!));
 
         if (response.containsKey('user_id') && mounted) {
           final userId = response['user_id'].toString();
@@ -158,6 +166,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           _isLoading = false;
         });
       }
+    }
+  }
+
+  int _getLevelUserValue(String levelUserText) {
+    switch (levelUserText) {
+      case 'Berita':
+        return 2;
+      case 'Data Evaluasi':
+        return 3;
+      case 'Kerjasama':
+        return 4;
+      case 'Program dan Perencanaan':
+        return 5;
+      default:
+        throw Exception('Invalid Level User');
     }
   }
 
@@ -220,6 +243,42 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               }
               return null;
             },
+          ),
+          SizedBox(height: _formPadding),
+          // Add level user dropdown
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: AppStyles.primaryBlue, width: 2),
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButtonFormField<String>(
+                value: _selectedLevelUser,
+                hint: const Text('Pilih Bagian',
+                    style: AppStyles.hintStyle),
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10),
+                  border: InputBorder.none,
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Level pengguna harus dipilih';
+                  }
+                  return null;
+                },
+                items: _levelUserOptions.map((String level) {
+                  return DropdownMenuItem(
+                    value: level,
+                    child: Text(level),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    _selectedLevelUser = newValue;
+                  });
+                },
+              ),
+            ),
           ),
           SizedBox(height: _formPadding),
           AnimatedTextField(

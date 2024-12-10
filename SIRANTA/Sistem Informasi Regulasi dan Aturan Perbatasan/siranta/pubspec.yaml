@@ -42,7 +42,9 @@ dependencies:
   path: ^1.9.0
   image_picker: ^1.1.2
   cupertino_icons: ^1.0.8
-  
+  shared_preferences: ^2.3.1
+  flutter_animate: ^4.5.2
+  animations: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +74,7 @@ flutter:
   assets:
     - assets/files/
     - assets/images/
+    - assets/images/plbns/
     - assets/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -86,6 +89,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
+  # - family: Plus Jakarta Sans
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

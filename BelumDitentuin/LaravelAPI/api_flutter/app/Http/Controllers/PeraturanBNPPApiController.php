@@ -11,7 +11,7 @@ class PeraturanBNPPApiController extends Controller
     {
         // Mengambil semua peraturan dengan jenis_peraturan_id = 4, dan relasi `jenisPeraturan` serta `tipeDokumen`
         $peraturans = Peraturan::with(['jenisPeraturan'])
-            ->where('jenis_peraturan_id', 4)
+            ->where('jenis_peraturan_id', 6)
             ->get()
             ->map(function ($peraturan) {
                 return [

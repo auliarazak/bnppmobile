@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:belumditentuin/Home/home1.dart';
 import 'dart:convert';
 
@@ -16,6 +17,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
   bool _isEmailValid = true;
+
+  Future<void> _saveUserData(Map<String, dynamic> userData) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('user_id', userData['user_id']);
+  }
 
   Future<void> _login() async {
     final String email = _emailController.text;
@@ -44,17 +50,28 @@ class _LoginScreenState extends State<LoginScreen> {
       );
 
       if (response.statusCode == 200) {
-        final responseData = jsonDecode(response.body);
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => Home()),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(responseData['message'])),
-        );
+        final Map<String, dynamic> responseData = jsonDecode(response.body);
+        
+        // Pastikan response mengandung data user
+        if (responseData.containsKey('user')) {
+          // Simpan data user
+          await _saveUserData(responseData['user']);
+          
+          // Navigasi ke halaman home
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => Home()),
+          );
+          
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Selamat datang, ${responseData['user']['name']}')),
+          );
+        } else {
+          _showErrorDialog('Data pengguna tidak ditemukan');
+        }
       } else {
         // Tampilkan popup jika login gagal
-        _showErrorDialog();
+        _showErrorDialog('Password atau email yang anda masukan tidak terdaftar.');
       }
     } catch (error) {
       print('Error logging in: $error');
@@ -68,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
   }
 
-  void _showErrorDialog() {
+  void _showErrorDialog([String? message]) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -88,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20),
               Text(
-                'Password / email yang anda masukan tidak terdaftar.',
+                message ?? 'Password / email yang anda masukan tidak terdaftar.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Plus Jakarta Sans',

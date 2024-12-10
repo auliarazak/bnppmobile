@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id('berita_id');
             $table->foreignId('user_id')->references('user_id')->on('users');
             $table->string('judul_berita');
-            $table->string('deskripsi_berita');
+            $table->longText('deskripsi_berita');
             $table->date('tgl_berita');
-            $table->text('foto_berita');
+            $table->longText('foto_berita');
+            $table->boolean('status');
+            $table->timestamps();
         });
     }
 

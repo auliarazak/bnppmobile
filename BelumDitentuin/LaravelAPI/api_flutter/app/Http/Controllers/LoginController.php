@@ -17,64 +17,30 @@ class LoginController extends Controller
 
         // Attempt to log the user in
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Authentication passed...
-            return response()->json(['message' => 'Login successful', 'user' => Auth::user()], 200);
+            // Check if email is verified
+            $user = Auth::user();
+
+            if ($user->waktu_email_verifikasi === null) {
+                Auth::logout(); // Logout user karena email belum terverifikasi
+                return response()->json([
+                    'message' => 'Email belum terverifikasi. Silahkan verifikasi email Anda terlebih dahulu.'
+                ], 401);
+            }
+
+            // Authentication passed and email verified...
+            return response()->json([
+                'message' => 'Login successful',
+                'user' => $user
+            ], 200);
         }
 
-        return response()->json(['message' => 'Invalid credentials'], 401);
-    }
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+        return response()->json([
+            'message' => 'Email atau password salah'
+        ], 401);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function forgetPassword()
     {
         //
     }

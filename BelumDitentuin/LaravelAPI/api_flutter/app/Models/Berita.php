@@ -12,12 +12,15 @@ class Berita extends Model
 
     protected $table = "beritas";
 
+    protected $primaryKey = 'berita_id';
+
     protected $fillable = [
         'user_id',
         'judul_berita',
         'deskripsi_berita',
         'tgl_berita',
         'foto_berita',
+        'status'
     ];
 
     public function user(): BelongsTo
